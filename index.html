@@ -1205,23 +1205,50 @@ document.querySelectorAll("a[href^='#']").forEach(a=>{
 });
 
 // Contact form
-document.getElementById("contactForm").addEventListener("submit",async e=>{
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
   e.preventDefault();
-  const btn=document.getElementById("submitBtn");
-  const msg=document.getElementById("form-msg");
-  msg.className="";msg.style.display="none";
-  btn.textContent="Sending…";btn.disabled=true;
-  const payload={name:document.getElementById("name").value,email:document.getElementById("email").value,company:document.getElementById("company").value,kind:document.getElementById("kind").value,message:document.getElementById("message").value};
-  try{
-    const res=await fetch("/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    const data=await res.json();
-    if(data.ok){msg.className="ok";msg.textContent="✓ Message sent! I will reply within 24 hours.";e.target.reset()}
-    else{throw new Error(data.error||"Unknown error")}
-  }catch(err){
-    msg.className="err";msg.textContent="✗ "+(err.message||"Something went wrong. Please email me directly.");
-  }finally{
-    btn.innerHTML='<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" width="15" height="15"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send message';
-    btn.disabled=false;
+  var btn = document.getElementById("submitBtn");
+  var msg = document.getElementById("form-msg");
+  var form = e.target;
+
+  var required = form.querySelectorAll("[required]");
+  var valid = true;
+  required.forEach(function(f) { if (!f.value.trim()) valid = false; });
+  if (!valid) {
+    msg.className = "err";
+    msg.style.display = "block";
+    msg.textContent = "✗ Please fill in all required fields.";
+    return;
+  }
+
+  msg.className = ""; msg.style.display = "none";
+  btn.textContent = "Sending…"; btn.disabled = true;
+
+  var data = new FormData(form);
+
+  try {
+    var res = await fetch("https://formspree.io/f/mredqapd", {
+      method: "POST",
+      body: data,
+      headers: { "Accept": "application/json" }
+    });
+    var json = await res.json();
+    if (res.ok) {
+      msg.className = "ok";
+      msg.style.display = "block";
+      msg.textContent = "✓ Message sent! I will reply within 24 hours.";
+      form.reset();
+    } else {
+      var errText = (json.errors || []).map(function(e){ return e.message; }).join(", ") || "Something went wrong.";
+      throw new Error(errText);
+    }
+  } catch(err) {
+    msg.className = "err";
+    msg.style.display = "block";
+    msg.textContent = "✗ " + (err.message || "Something went wrong. Please email me directly.");
+  } finally {
+    btn.innerHTML = '<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send message';
+    btn.disabled = false;
   }
 });
 
