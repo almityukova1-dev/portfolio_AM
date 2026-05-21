@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aleksandra Mitiukova — PM · BA · QA Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS — blue palette
+═══════════════════════════════════════════ */
+:root {
+  --ink:        #0b1220;
+  --paper:      #f0f4f9;
+  --cream:      #e4edf6;
+  --blue:       #2563a8;
+  --blue-lt:    #4a90d9;
+  --blue-dim:   #1a4a8a;
+  --sky:        #c8ddf2;
+  --muted:      #5a6880;
+  --border:     #c2d4e8;
+  --white:      #f8fbff;
+
+  --ff-display: 'Cormorant Garamond', Georgia, serif;
+  --ff-mono:    'DM Mono', monospace;
+  --ff-body:    'DM Sans', sans-serif;
+
+  --max: 1200px;
+  --gap: clamp(2rem, 5vw, 4rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ff-body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+::selection { background: var(--blue); color: var(--white); }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; }
+
+/* noise */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: .35;
+}
+
+/* ═══ NAV ═══ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.1rem clamp(1.5rem, 5vw, 3rem);
+  background: rgba(240,244,249,.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+/* SVG logo */
+.nav-logo svg { display: block; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-family: var(--ff-mono);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--blue); }
+.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.burger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: .3s; }
+
+/* ═══ HERO ═══ */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding-top: 5rem;
+  overflow: hidden;
+}
+.hero-left {
+  padding: var(--gap) clamp(1.5rem, 5vw, 4rem) var(--gap) clamp(1.5rem, 8vw, 7rem);
+}
+h1 {
+  font-family: var(--ff-display);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -.01em;
+  margin-bottom: 1.5rem;
+}
+h1 em { font-style: italic; color: var(--blue); }
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 38ch;
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+}
+.hero-langs {
+  font-family: var(--ff-mono);
+  font-size: .72rem;
+  letter-spacing: .1em;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+.hero-langs span { color: var(--blue); margin: 0 .3rem; }
+.btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .85rem 2rem;
+  font-family: var(--ff-mono);
+  font-size: .75rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  transition: all .25s;
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn-primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
+}
+.btn-primary:hover { background: var(--blue-dim); border-color: var(--blue-dim); color: var(--white); }
+
+.hero-right {
+  position: relative;
+  height: 100vh;
+  background: var(--cream);
+  overflow: hidden;
+}
+.hero-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  width: 100%; height: 100%;
+}
+.stat-cell {
+  background: var(--cream);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 2.5rem;
+  text-align: center;
+  transition: background .3s;
+}
+.stat-cell:hover { background: var(--white); }
+.stat-num {
+  font-family: var(--ff-display);
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-weight: 300;
+  color: var(--blue);
+  line-height: 1;
+  margin-bottom: .4rem;
+}
+.stat-label {
+  font-family: var(--ff-mono);
+  font-size: .6rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ═══ SECTIONS ═══ */
+section { padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 5vw, 3rem); }
+.container { max-width: var(--max); margin: 0 auto; }
+.section-eyebrow {
+  font-family: var(--ff-mono);
+  font-size: .68rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.section-eyebrow::after { content: ''; flex: 1; max-width: 3rem; height: 1px; background: var(--blue); }
+h2 {
+  font-family: var(--ff-display);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 3rem;
+}
+h2 em { font-style: italic; color: var(--blue); }
+
+/* ═══ SERVICES ═══ */
+#services { background: var(--cream); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--border);
+}
+.service-card {
+  background: var(--cream);
+  padding: 2.5rem 2rem;
+  transition: background .3s;
+  position: relative; overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--blue);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .35s ease;
+}
+.service-card:hover { background: var(--white); }
+.service-card:hover::before { transform: scaleX(1); }
+.service-icon {
+  font-family: var(--ff-mono);
+  font-size: .68rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.service-icon svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; }
+.service-card h3 {
+  font-family: var(--ff-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+.service-card p { font-size: .9rem; color: var(--muted); line-height: 1.75; }
+.service-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.25rem; }
+.tag {
+  font-family: var(--ff-mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .25rem .6rem;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+/* ═══ VENDORS ═══ */
+#vendors { background: var(--ink); color: var(--paper); }
+#vendors .section-eyebrow { color: var(--blue-lt); }
+#vendors .section-eyebrow::after { background: var(--blue-lt); }
+#vendors h2 { color: var(--paper); }
+#vendors h2 em { color: var(--blue-lt); }
+
+.vendors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2px;
+  background: rgba(255,255,255,.06);
+}
+.vendor-group {
+  background: var(--ink);
+  padding: 2.5rem 2rem;
+  border-top: 3px solid transparent;
+  transition: border-color .3s, background .3s;
+}
+.vendor-group:nth-child(1) { border-top-color: var(--blue); }
+.vendor-group:nth-child(2) { border-top-color: var(--blue-lt); }
+.vendor-group:nth-child(3) { border-top-color: #6ab4f5; }
+.vendor-group:hover { background: rgba(255,255,255,.03); }
+
+.vendor-group-title {
+  font-family: var(--ff-mono);
+  font-size: .63rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--blue-lt);
+  margin-bottom: 1.25rem;
+  padding-bottom: .65rem;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.vendor-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+.vendor-list li {
+  display: grid;
+  grid-template-columns: minmax(140px, 38%) 1fr;
+  gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.vendor-list li:last-child { border-bottom: none; }
+.vendor-name {
+  font-family: var(--ff-mono);
+  font-size: .75rem;
+  font-weight: 500;
+  color: var(--paper);
+  padding: .45rem .5rem .45rem 0;
+  letter-spacing: .02em;
+}
+.vendor-desc {
+  font-size: .8rem;
+  color: rgba(240,244,249,.55);
+  padding: .45rem 0 .45rem .75rem;
+  border-left: 1px solid rgba(255,255,255,.08);
+  line-height: 1.45;
+}
+
+/* ═══ PROJECTS ═══ */
+#projects { background: var(--paper); }
+.projects-list { display: flex; flex-direction: column; gap: 0; }
+.project-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: background .25s;
+  cursor: default;
+}
+.project-item:first-child { border-top: 1px solid var(--border); }
+.project-item:hover { background: var(--cream); margin: 0 -2rem; padding: 2.5rem 2rem; }
+.project-year {
+  font-family: var(--ff-mono);
+  font-size: .68rem;
+  letter-spacing: .12em;
+  color: var(--muted);
+  min-width: 4rem;
+  padding-top: .25rem;
+}
+.project-content h3 {
+  font-family: var(--ff-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: .5rem;
+}
+.project-content p { font-size: .88rem; color: var(--muted); max-width: 60ch; line-height: 1.7; }
+.project-roles {
+  font-family: var(--ff-mono);
+  font-size: .62rem;
+  letter-spacing: .08em;
+  color: var(--blue-lt);
+  margin-top: .4rem;
+}
+.project-meta { display: flex; flex-direction: column; align-items: flex-end; gap: .5rem; }
+.project-badge {
+  font-family: var(--ff-mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .3rem .8rem;
+  background: var(--blue);
+  color: var(--white);
+}
+.project-badge.secondary { background: var(--muted); }
+
+/* ═══ SKILLS ═══ */
+#skills { background: var(--cream); }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2.5rem;
+}
+.skill-group h4 {
+  font-family: var(--ff-mono);
+  font-size: .68rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 1.25rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid var(--border);
+}
+.skill-list { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+.skill-list li {
+  font-size: .88rem; color: var(--muted);
+  display: flex; align-items: center; gap: .6rem;
+}
+.skill-list li::before {
+  content: '—'; color: var(--blue);
+  font-family: var(--ff-mono); font-size: .75rem;
+}
+
+/* ═══ CONTACT ═══ */
+#contact { background: var(--paper); }
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+}
+.contact-info h3 {
+  font-family: var(--ff-display);
+  font-size: 2rem; font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+.contact-info p { color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+.contact-detail { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+.contact-detail-item { display: flex; align-items: center; gap: 1rem; }
+.contact-detail-item svg { width: 16px; height: 16px; stroke: var(--blue); fill: none; flex-shrink: 0; }
+.contact-detail-item a:hover { color: var(--blue); }
+.contact-detail-item span { font-size: .9rem; }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.field { display: flex; flex-direction: column; gap: .4rem; }
+.field label {
+  font-family: var(--ff-mono);
+  font-size: .62rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.field input, .field select, .field textarea {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  color: var(--ink);
+  font-family: var(--ff-body);
+  font-size: .9rem;
+  padding: .8rem 1rem;
+  outline: none;
+  transition: border-color .2s;
+  width: 100%; resize: vertical;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--blue); }
+.field textarea { min-height: 120px; }
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a6880' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem; cursor: pointer;
+}
+.submit-btn {
+  display: flex; align-items: center; justify-content: center; gap: .75rem;
+  padding: 1rem 2rem;
+  font-family: var(--ff-mono);
+  font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;
+  background: var(--blue); color: var(--white);
+  border: none; cursor: pointer;
+  transition: background .25s, transform .2s;
+}
+.submit-btn:hover { background: var(--ink); }
+.submit-btn:active { transform: scale(.97); }
+.submit-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+#form-msg { padding: 1rem; font-size: .88rem; text-align: center; display: none; }
+#form-msg.ok { background: #e3f0ff; color: #1a4a8a; display: block; }
+#form-msg.err { background: #fce4ec; color: #c62828; display: block; }
+
+/* ═══ FOOTER ═══ */
+footer {
+  background: var(--ink);
+  color: rgba(240,244,249,.4);
+  padding: 2.5rem clamp(1.5rem, 5vw, 3rem);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+footer .logo {
+  font-family: var(--ff-display);
+  font-size: 1.1rem; font-weight: 600;
+  color: var(--paper);
+}
+footer span { font-family: var(--ff-mono); font-size: .68rem; letter-spacing: .1em; }
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity .65s ease, transform .65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  #hero { grid-template-columns: 1fr; }
+  .hero-right { height: 50vh; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .contact-wrap { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; gap: 1.5rem;
+    position: fixed; inset: 0; top: 65px;
+    background: var(--paper);
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    z-index: 99;
+  }
+  .nav-links.open a { font-size: 1.1rem; }
+  .burger { display: flex; }
+  .project-item { grid-template-columns: 1fr; }
+  .project-year { display: none; }
+  .project-meta { align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <!-- Automation-inspired SVG logo: interlocking cogs + circuit nodes -->
+  <a href="#" class="nav-logo" aria-label="Aleksandra Mitiukova">
+    <svg width="44" height="36" viewBox="0 0 44 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- circuit base line -->
+      <line x1="2" y1="18" x2="42" y2="18" stroke="#2563a8" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- nodes -->
+      <circle cx="8"  cy="18" r="3"   fill="#2563a8"/>
+      <circle cx="22" cy="18" r="4.5" fill="none" stroke="#2563a8" stroke-width="1.5"/>
+      <circle cx="22" cy="18" r="1.8" fill="#4a90d9"/>
+      <circle cx="36" cy="18" r="3"   fill="#2563a8"/>
+      <!-- vertical ticks — automation rhythm -->
+      <line x1="8"  y1="10" x2="8"  y2="14" stroke="#4a90d9" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="8"  y1="22" x2="8"  y2="26" stroke="#4a90d9" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="6"  x2="22" y2="12" stroke="#2563a8" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="24" x2="22" y2="30" stroke="#2563a8" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="36" y1="10" x2="36" y2="14" stroke="#4a90d9" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="36" y1="22" x2="36" y2="26" stroke="#4a90d9" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#vendors">Vendors</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-left">
+    <h1>Aleksandra<br><em>Mitiukova</em></h1>
+    <p class="hero-sub">
+      Technical Project Manager · Business Analyst · QA Lead<br>
+      13 years delivering enterprise ERP, MDM &amp; BI solutions across telecom and construction sectors.
+    </p>
+    <div class="hero-langs">
+      English<span>·</span>Spanish<span>·</span>Russian
+      &nbsp;&nbsp;|&nbsp;&nbsp;Valencia, Spain
+    </div>
+    <div class="btn-group">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#projects" class="btn">View projects</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat-cell">
+        <div class="stat-num">13</div>
+        <div class="stat-label">Years in IT</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">$760k–$1M</div>
+        <div class="stat-label">Project budgets managed</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">7+</div>
+        <div class="stat-label">Business domains covered</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">300–500</div>
+        <div class="stat-label">Users guided through E2E &amp; UAT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <div class="container">
+    <div class="section-eyebrow reveal">What I offer</div>
+    <h2 class="reveal">Services &amp; <em>Expertise</em></h2>
+
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          PM / BA
+        </div>
+        <h3>Project &amp; Program Management</h3>
+        <p>End-to-end delivery of complex IT projects — from requirements to go-live. Budget control, risk management, cross-functional coordination and stakeholder communication in high-stakes environments.</p>
+        <div class="service-tags">
+          <span class="tag">PMP</span><span class="tag">Agile</span><span class="tag">Scrum</span>
+          <span class="tag">Waterfall</span><span class="tag">TOGAF</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          ERP / MDM
+        </div>
+        <h3>ERP &amp; Systems Migration and Integration</h3>
+        <p>Requirements gathering, gap analysis, functional specifications and full ERP lifecycle management — including migrations and integrations with MDM, GPS, BI and accounting systems across organisations of 500–5,000+ users.</p>
+        <div class="service-tags">
+          <span class="tag">ERP</span><span class="tag">MDM</span>
+          <span class="tag">IBM Cognos</span><span class="tag">API</span><span class="tag">SQL</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          QA / Testing
+        </div>
+        <h3>QA Lead &amp; Test Strategy</h3>
+        <p>Defining test strategies, writing test cases and acceptance criteria. Functional, regression, integration, UI/UX and API testing. Coordinating UAT for large user groups. Experienced on TestIO &amp; uTest (Diamond level).</p>
+        <div class="service-tags">
+          <span class="tag">UAT</span><span class="tag">Regression</span><span class="tag">API Testing</span>
+          <span class="tag">Postman</span><span class="tag">Jira</span><span class="tag">CI/CD</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M3 3h18v18H3z"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+          Business Analysis
+        </div>
+        <h3>Business Process Optimisation</h3>
+        <p>Modelling as-is and to-be processes with BPMN 2.0, IDEF, VAD and EPC notations. Identifying inefficiencies, designing automation and delivering measurable cost savings and workflow improvements.</p>
+        <div class="service-tags">
+          <span class="tag">BPMN 2.0</span><span class="tag">IDEF</span><span class="tag">ARIS</span>
+          <span class="tag">RevOps</span><span class="tag">Automation</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          BI / Data
+        </div>
+        <h3>BI Dashboards &amp; Data Infrastructure</h3>
+        <p>Designing data pipelines, KPI dashboards and integrations between BI platforms and external systems. Experience with IBM Planning Analytics (Cognos), SQL optimisation and multi-unit reporting.</p>
+        <div class="service-tags">
+          <span class="tag">IBM PA</span><span class="tag">SQL</span><span class="tag">KPI</span>
+          <span class="tag">Dashboards</span><span class="tag">Data Integration</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+          Infrastructure
+        </div>
+        <h3>IT Infrastructure &amp; DC Solutions</h3>
+        <p>Scoping and delivering LAN/WAN and Data Centre projects — servers, storage, virtualisation, network security and firewalls — for 20+ enterprise clients with $3.5M+ in annual revenue.</p>
+        <div class="service-tags">
+          <span class="tag">LAN / WAN</span><span class="tag">DC Architecture</span>
+          <span class="tag">Cisco</span><span class="tag">Network Security</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VENDORS ═══ -->
+<section id="vendors">
+  <div class="container">
+    <div class="section-eyebrow reveal">Technology landscape</div>
+    <h2 class="reveal">Vendor <em>Experience</em></h2>
+
+    <div class="vendors-grid">
+
+      <div class="vendor-group reveal">
+        <div class="vendor-group-title">Enterprise Software — implemented, integrated &amp; configured</div>
+        <ul class="vendor-list">
+          <li><span class="vendor-name">ERP</span><span class="vendor-desc">End-to-end implementation &amp; integration</span></li>
+          <li><span class="vendor-name">1C</span><span class="vendor-desc">Accounting system integration &amp; data migration</span></li>
+          <li><span class="vendor-name">IBM PA (Cognos)</span><span class="vendor-desc">BI &amp; financial planning</span></li>
+          <li><span class="vendor-name">MDM</span><span class="vendor-desc">Integration, validation &amp; data mapping</span></li>
+          <li><span class="vendor-name">Pilot-ICE</span><span class="vendor-desc">Industrial civil engineering — integration with ERP</span></li>
+          <li><span class="vendor-name">GPS Wialon</span><span class="vendor-desc">Tracking system for construction equipment — integration with 1C:MTM &amp; IBM PA</span></li>
+          <li><span class="vendor-name">1C:MTM</span><span class="vendor-desc">Motor Transport Management — automating transport accounting &amp; management; integration with IBM PA &amp; ERP</span></li>
+        </ul>
+      </div>
+
+      <div class="vendor-group reveal">
+        <div class="vendor-group-title">Infrastructure vendors — Trinity &amp; InNetTech</div>
+        <ul class="vendor-list">
+          <li><span class="vendor-name">Cisco</span><span class="vendor-desc">LAN/WAN, switching &amp; routing</span></li>
+          <li><span class="vendor-name">Arista</span><span class="vendor-desc">Data centre networking</span></li>
+          <li><span class="vendor-name">Nutanix · IBM · NetApp · Lenovo · Fujitsu</span><span class="vendor-desc">Hyper-converged infrastructure, enterprise hardware, servers &amp; IT infrastructure</span></li>
+          <li><span class="vendor-name">IBM Watson</span><span class="vendor-desc">Servers &amp; storage solutions</span></li>
+          <li><span class="vendor-name">GE</span><span class="vendor-desc">Industrial &amp; data centre solutions</span></li>
+          <li><span class="vendor-name">Fortinet</span><span class="vendor-desc">Network security &amp; firewalls</span></li>
+          <li><span class="vendor-name">Veritas</span><span class="vendor-desc">Data backup, recovery &amp; information management</span></li>
+          <li><span class="vendor-name">VMware · Hyper-V</span><span class="vendor-desc">Virtualisation platforms — server &amp; desktop virtualisation</span></li>
+        </ul>
+      </div>
+
+      <div class="vendor-group reveal">
+        <div class="vendor-group-title">Tools used in daily work</div>
+        <ul class="vendor-list">
+          <li><span class="vendor-name">Jira &amp; Confluence</span><span class="vendor-desc">Project management &amp; documentation</span></li>
+          <li><span class="vendor-name">Postman</span><span class="vendor-desc">API testing &amp; validation</span></li>
+          <li><span class="vendor-name">ARIS</span><span class="vendor-desc">Business process modelling</span></li>
+          <li><span class="vendor-name">ArchiMate &amp; Visio</span><span class="vendor-desc">Architecture &amp; process diagrams</span></li>
+          <li><span class="vendor-name">MS Project &amp; SharePoint</span><span class="vendor-desc">Planning &amp; team collaboration</span></li>
+          <li><span class="vendor-name">GitHub</span><span class="vendor-desc">Version control &amp; CI/CD pipelines</span></li>
+          <li><span class="vendor-name">Charles Proxy &amp; DevTools</span><span class="vendor-desc">Web &amp; API debugging</span></li>
+          <li><span class="vendor-name">SQL</span><span class="vendor-desc">Data queries, pipelines &amp; validation</span></li>
+          <li><span class="vendor-name">Excel</span><span class="vendor-desc">Financial modelling &amp; reporting</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROJECTS ═══ -->
+<section id="projects">
+  <div class="container">
+    <div class="section-eyebrow reveal">Selected work</div>
+    <h2 class="reveal">Notable <em>Projects</em></h2>
+
+    <div class="projects-list">
+
+      <div class="project-item reveal">
+        <div class="project-year">2022–24</div>
+        <div class="project-content">
+          <h3>End-to-End ERP Implementation — Proektstroyservis</h3>
+          <div class="project-roles">BA → PM → QA Lead</div>
+          <p>Managed the full lifecycle of a $940k ERP rollout across 7 simultaneous projects for a 1,500-employee construction company. Delivered integrations with MDM, Pilot and GPS systems; led accounting migration preserving full data continuity; coordinated UAT for 300+ end users.</p>
+        </div>
+        <div class="project-meta">
+          <span class="project-badge">ERP</span>
+          <span class="project-badge secondary">BA · PM · QA Lead</span>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-year">2020–22</div>
+        <div class="project-content">
+          <h3>IBM Planning Analytics Integration — VisGroup</h3>
+          <div class="project-roles">BA → PM → QA Lead</div>
+          <p>Designed and validated data infrastructure between IBM PA (Cognos) and external systems across 4 projects for a 74-entity holding company with 5,000+ employees. Built optimised SQL pipelines, created KPI dashboards and led system UAT for 500+ users. Budget: $760k.</p>
+        </div>
+        <div class="project-meta">
+          <span class="project-badge">BI / Data</span>
+          <span class="project-badge secondary">BA · PM · QA Lead</span>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-year">2018–20</div>
+        <div class="project-content">
+          <h3>BIM Digital Transformation — N-Systems</h3>
+          <p>Led the shift from manual construction drawings to BIM using Autodesk Revit at a 500-person design firm. Contributed to $6M in annual sales — the company's best performance — while cutting processing errors and lifting drawing accuracy by 40%.</p>
+        </div>
+        <div class="project-meta">
+          <span class="project-badge">BIM</span>
+          <span class="project-badge secondary">Dev Manager</span>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-year">2015–17</div>
+        <div class="project-content">
+          <h3>Enterprise Data Centre Solutions — Trinity</h3>
+          <p>Delivered 35+ fault-tolerant data centre solutions for 20+ clients as key partner of GE, IBM, Lenovo, Cisco, Fujitsu and Fortinet. Achieved $3.5M annual profit and drove 100% customer satisfaction across all engagements.</p>
+        </div>
+        <div class="project-meta">
+          <span class="project-badge">Infrastructure</span>
+          <span class="project-badge secondary">Sales / PM</span>
+        </div>
+      </div>
+
+      <div class="project-item reveal">
+        <div class="project-year">2013–15</div>
+        <div class="project-content">
+          <h3>LAN/MAN Nationwide Rollouts — InNetTech</h3>
+          <p>Delivered 18+ LAN and MAN network projects across the country as partner of Cisco, Arista and Nutanix. Maintained 100% client satisfaction through meticulous planning, execution and stakeholder management.</p>
+        </div>
+        <div class="project-meta">
+          <span class="project-badge">Networking</span>
+          <span class="project-badge secondary">Sales / Tech</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills">
+  <div class="container">
+    <div class="section-eyebrow reveal">Toolkit</div>
+    <h2 class="reveal">Skills &amp; <em>Certifications</em></h2>
+
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <h4>Methodologies</h4>
+        <ul class="skill-list">
+          <li>PMP · Agile · Scrum · Waterfall</li>
+          <li>BPMN 2.0 · IDEF · VAD · EPC</li>
+          <li>TOGAF® 10</li>
+          <li>UAT &amp; Test Case Design</li>
+          <li>Risk &amp; Change Management</li>
+          <li>Stakeholder Management</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <h4>Tools &amp; Platforms</h4>
+        <ul class="skill-list">
+          <li>Jira · Confluence · MS Project</li>
+          <li>Postman · DevTools · Charles Proxy</li>
+          <li>ARIS · ArchiMate · Visio</li>
+          <li>SQL · GitHub · SharePoint</li>
+          <li>Excel · IBM PA (Cognos)</li>
+          <li>Autodesk Revit (BIM)</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <h4>QA &amp; Testing</h4>
+        <ul class="skill-list">
+          <li>Functional &amp; Regression Testing</li>
+          <li>API &amp; Security Testing</li>
+          <li>UI/UX &amp; Integration Testing</li>
+          <li>CI/CD Pipeline Validation</li>
+          <li>Test Documentation</li>
+          <li>Diamond-level (TestIO / uTest)</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <h4>Infrastructure</h4>
+        <ul class="skill-list">
+          <li>LAN · WAN · Data Centre Architecture</li>
+          <li>Network Security · Firewalls</li>
+          <li>Storage Virtualisation</li>
+          <li>SaaS · Cloud Solutions</li>
+          <li>Data Backup Solutions</li>
+          <li>Multi-Site Technology Operations</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <h4>Certifications</h4>
+        <ul class="skill-list">
+          <li>PMP — 2017</li>
+          <li>TOGAF® 10 — 2021</li>
+          <li>Information Systems Design — 2021</li>
+          <li>Security &amp; API Testing — 2024</li>
+          <li>B.Sc. Management Accounting &amp; Finance</li>
+        </ul>
+      </div>
+      <div class="skill-group reveal">
+        <h4>Soft Skills</h4>
+        <ul class="skill-list">
+          <li>Cross-functional Team Leadership</li>
+          <li>Strategic Planning</li>
+          <li>Business Consulting</li>
+          <li>Financial &amp; Resource Management</li>
+          <li>Analytical Thinking</li>
+          <li>Trilingual: EN · ES · RU</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="container">
+    <div class="section-eyebrow reveal">Let's work together</div>
+    <h2 class="reveal">Get in <em>Touch</em></h2>
+
+    <div class="contact-wrap">
+      <div class="contact-info reveal">
+        <h3>Open to consultations, interviews &amp; new projects</h3>
+        <p>Whether you need a Technical PM, a Business Analyst or a QA Lead — or all three — I'd love to hear about your challenge. Send a message and I'll respond within 24 hours.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-item">
+            <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span><a href="mailto:almityukova1@gmail.com">almityukova1@gmail.com</a></span>
+          </div>
+          <div class="contact-detail-item">
+            <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.21 2 2 0 012 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <span><a href="tel:+34661186399">+34 661 186 399</a></span>
+          </div>
+          <div class="contact-detail-item">
+            <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            <span><a href="https://www.linkedin.com/in/aleksandra-mitiukova/" target="_blank">linkedin.com/in/aleksandra-mitiukova</a></span>
+          </div>
+          <div class="contact-detail-item">
+            <svg viewBox="0 0 24 24" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Valencia, Spain</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Full name *</label>
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required/>
+            </div>
+            <div class="field">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="jane@company.com" required/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" placeholder="Acme Corp"/>
+            </div>
+            <div class="field">
+              <label for="kind">Type of enquiry *</label>
+              <select id="kind" name="kind" required>
+                <option value="" disabled selected>Select…</option>
+                <option value="consultation">Request a consultation</option>
+                <option value="interview">Interview invitation</option>
+                <option value="offer">Job / project offer</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project or opportunity…" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <svg viewBox="0 0 24 24" stroke-width="1.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send message
+          </button>
+          <div id="form-msg"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="logo">Aleksandra Mitiukova</div>
+  <span>PM · BA · QA Lead · Valencia, Spain</span>
+  <span>© 2025</span>
+</footer>
+
+<script>
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('form-msg');
+  msg.className = ''; msg.style.display = 'none';
+  btn.textContent = 'Sending…'; btn.disabled = true;
+  const payload = {
+    name:    document.getElementById('name').value,
+    email:   document.getElementById('email').value,
+    company: document.getElementById('company').value,
+    kind:    document.getElementById('kind').value,
+    message: document.getElementById('message').value,
+  };
+  try {
+    const res = await fetch('/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (data.ok) {
+      msg.className = 'ok';
+      msg.textContent = '✓ Your message has been sent! I will reply within 24 hours.';
+      e.target.reset();
+    } else { throw new Error(data.error || 'Unknown error'); }
+  } catch (err) {
+    msg.className = 'err';
+    msg.textContent = '✗ ' + (err.message || 'Something went wrong. Please email me directly.');
+  } finally {
+    btn.innerHTML = '<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send message';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
