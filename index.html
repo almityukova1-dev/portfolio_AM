@@ -1157,7 +1157,7 @@ footer span{font-family:var(--ff-mono);font-size:.63rem;letter-spacing:.1em}
 #tPrev:hover, #tNext:hover { background: rgba(255,255,255,.16); }
 @media(max-width:768px) {
   .t-slide { display: contents !important; }
-  .t-card  { min-width: 100%; flex-shrink: 0; }
+  .t-card  { flex: 0 0 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
 }
 @media(max-width:900px) {
   .t-slide { grid-template-columns: 1fr 1fr !important; }
