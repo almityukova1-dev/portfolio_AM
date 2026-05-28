@@ -390,6 +390,13 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .faq-a{display:none;padding:0 2rem 1.4rem 0;font-size:.9rem;color:var(--muted);line-height:1.85;max-width:66ch}
 .faq-item.open .faq-a{display:block}
 
+/* SCROLL TO TOP */
+#scrollTop{position:fixed;bottom:1.75rem;right:1.75rem;z-index:500;width:42px;height:42px;background:var(--ink);border:1.5px solid var(--blue);color:var(--blue);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s,background .2s,color .2s;border-radius:0}
+#scrollTop.visible{opacity:1;pointer-events:auto}
+#scrollTop:hover{background:var(--blue);color:var(--white)}
+#scrollTop svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:768px){#scrollTop{width:38px;height:38px;bottom:1.25rem;right:1.25rem}}
+
 /* FOOTER */
 footer{background:var(--ink);color:rgba(240,244,249,.4);padding:2rem clamp(1rem,5vw,3rem);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
 footer .logo{font-family:var(--ff-display);font-size:1.05rem;font-weight:600;color:var(--paper)}
@@ -450,6 +457,10 @@ footer span{font-family:var(--ff-mono);font-size:.63rem;letter-spacing:.1em}
 </style>
 </head>
 <body>
+
+<button id="scrollTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 
 <nav id="mainNav">
   <a href="#" class="nav-logo" onclick="showPage('main');return false" aria-label="Home">
@@ -1439,6 +1450,17 @@ function initReveal(){
   document.querySelectorAll(".reveal:not(.visible)").forEach(el=>obs.observe(el));
 }
 initReveal();
+
+// Scroll to top button
+(function(){
+  var btn=document.getElementById('scrollTop');
+  window.addEventListener('scroll',function(){
+    btn.classList.toggle('visible',window.scrollY>800);
+  },{passive:true});
+  btn.addEventListener('click',function(){
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+})();
 
 // Browser back/forward support
 history.replaceState({page:"main"},"",location.href);
